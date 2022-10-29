@@ -10,7 +10,8 @@ JsonNode::JsonNode(JsonDocument *doc) :
     _firstChild(nullptr),
     _lastChild(nullptr),
     _next(nullptr),
-    _prev(nullptr)
+    _prev(nullptr),
+    _memPool(nullptr)
 {
 }
 

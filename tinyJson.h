@@ -251,14 +251,23 @@ public:
     virtual int ItemSize() const = 0;
     virtual void *Alloc() = 0;
     virtual void Free(void *) = 0;
+#ifdef DEBUG
     virtual void SetTracked() = 0;
+#endif
 };
 
 template< int SIZE >
 class MemPoolT : public MemPool
 {
 public:
-    MemPoolT() : _root(0), _currentAllocs(0), _nAllocs(0), _maxAllocs(0), _nUntracked(0) {}
+    MemPoolT() : _root(0)
+        , _currentAllocs(0)
+        , _nAllocs(0)
+        , _maxAllocs(0)
+#ifdef DEBUG
+        , _nUntracked(0)
+#endif
+    {}
     ~MemPoolT() 
     {
         for (int i = 0; i < _blockPtrs.Size(); ++i) {
@@ -296,7 +305,9 @@ public:
             _maxAllocs = _currentAllocs;
         }
         _nAllocs++;
+#ifdef DEBUG
         _nUntracked++;
+#endif
         return result;
     }
 

@@ -91,7 +91,9 @@ char *JsonNode::ParseDeep(char *json)
 
         json = JsonUtil::SkipWhiteSpace(node->ParseDeep(json));
         if (json == nullptr) {
+#ifdef DEBUG
             node->GetMemPool()->SetTracked();
+#endif
             DeleteNode(node);
             node = nullptr;
             _document->SetError(JsonError::JSON_ERROR_PARSING, 0, 0);
@@ -303,7 +305,9 @@ char *JsonObject::ParseElement(char *json) {
     JsonElement *node = _document->CreatElement();
     json = JsonUtil::SkipWhiteSpace(node->ParseDeep(json));
     if (json == nullptr) {
+#ifdef DEBUG
         node->GetMemPool()->SetTracked();
+#endif
         DeleteNode(node);
         node = nullptr;
         _document->SetError(JsonError::JSON_ERROR_PARSING_ELEMENT, 0, 0);

@@ -108,7 +108,8 @@ public:
         Reset();
     }
 
-    void Set(char *start, char *end) {
+    void Set(char *start, char *end) 
+    {
         Reset();
         _start = start;
         _end = end;
